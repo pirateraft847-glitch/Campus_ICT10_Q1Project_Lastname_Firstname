@@ -1,7 +1,7 @@
 import { type FormEvent, type ReactNode, useMemo, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ArrowRight, Boxes, CalendarDays, Check, ClipboardCopy, FileText, Hash, PackageCheck, Plus, Printer, RotateCcw, ScanLine, ShoppingBag, Sparkles, X } from 'lucide-react';
-import { Link, Route, Switch, useLocation } from 'wouter';
+import { Link, Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -345,7 +345,8 @@ function Router() {
 }
 
 function App() {
-  return <QueryClientProvider client={queryClient}><TooltipProvider><Router /><Toaster /></TooltipProvider></QueryClientProvider>;
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={basePath}><Router /></WouterRouter><Toaster /></TooltipProvider></QueryClientProvider>;
 }
 
 export default App;
